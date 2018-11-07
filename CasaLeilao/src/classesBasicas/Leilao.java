@@ -4,9 +4,10 @@ import java.util.LinkedList;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Getter @Setter @AllArgsConstructor
+
 public class Leilao {
+	private int idLeilao;
 	private LinkedList<Item> itens;
 	private String dataHoraInicio;
 	private String dataHoraFim;

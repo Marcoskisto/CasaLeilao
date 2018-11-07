@@ -9,5 +9,6 @@ public abstract class Item {
 	private String descricao;
 	private String lanceMinimo;
 	private LinkedList<Lance> lances;
+	private int ano;
 
 }
