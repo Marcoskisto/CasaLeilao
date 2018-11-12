@@ -10,7 +10,6 @@ public class Leilao {
 	private int idLeilao;
 	private LinkedList<Item> itens;
 	private String dataHoraInicio;
-	private String dataHoraFim;
 	private String bancoCnpj;
 	private String status;
 }
