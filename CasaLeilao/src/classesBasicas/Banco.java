@@ -6,4 +6,5 @@ import lombok.*;
 public class Banco {
 	private String nome;
 	private String cnpj;
+
 }

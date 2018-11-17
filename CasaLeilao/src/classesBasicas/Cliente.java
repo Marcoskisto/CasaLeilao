@@ -14,5 +14,17 @@ public class Cliente {
 	private String cpf;
 	private String senha;
 	private LinkedList<Lance> lances;
-
+	
+	public Cliente(String nome,String cpf,String senha) {
+		this.nome=nome;
+		this.cpf=cpf;
+		this.senha=senha;
+		this.lances=new LinkedList<Lance>();
+	}
+	public void updateCliente(Cliente newCliente) {
+		this.nome=newCliente.getNome();
+		this.senha=newCliente.getSenha();
+		this.lances=new LinkedList<Lance>();
+	}
+	   
 }
