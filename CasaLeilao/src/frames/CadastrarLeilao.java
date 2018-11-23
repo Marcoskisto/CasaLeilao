@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
+
+import classesBasicas.Leilao;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JList;
 import javax.swing.JComboBox;
@@ -11,12 +14,14 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.awt.event.ActionEvent;
 
 public class CadastrarLeilao extends JInternalFrame {
-	private JTextField textFieldRua;
-	private JTextField textFieldNumero;
-	private JTextField textFieldCidade;
-	private JTextField textFieldCep;
+	private JTextField fieldRua;
+	private JTextField fieldNumero;
+	private JTextField fieldCidade;
 
 	/**
 	 * Launch the application.
@@ -43,41 +48,36 @@ public class CadastrarLeilao extends JInternalFrame {
 		setBounds(100, 100, 450, 310);
 		getContentPane().setLayout(null);
 		
-		JFormattedTextField frmtdtxtfldData = new JFormattedTextField();
-		frmtdtxtfldData.setBounds(35, 81, 85, 20);
-		getContentPane().add(frmtdtxtfldData);
+		JFormattedTextField fieldData = new JFormattedTextField();
+		fieldData.setBounds(35, 70, 85, 20);
+		getContentPane().add(fieldData);
 		
-		JFormattedTextField frmtdtxtfldHora = new JFormattedTextField();
-		frmtdtxtfldHora.setBounds(35, 130, 85, 20);
-		getContentPane().add(frmtdtxtfldHora);
+		JFormattedTextField fieldHora = new JFormattedTextField();
+		fieldHora.setBounds(35, 130, 85, 20);
+		getContentPane().add(fieldHora);
 		
-		textFieldRua = new JTextField();
-		textFieldRua.setBounds(185, 70, 140, 20);
-		getContentPane().add(textFieldRua);
-		textFieldRua.setColumns(10);
+		fieldRua = new JTextField();
+		fieldRua.setBounds(185, 70, 140, 20);
+		getContentPane().add(fieldRua);
+		fieldRua.setColumns(10);
 		
-		textFieldNumero = new JTextField();
-		textFieldNumero.setBounds(344, 70, 49, 20);
-		getContentPane().add(textFieldNumero);
-		textFieldNumero.setColumns(10);
+		fieldNumero = new JTextField();
+		fieldNumero.setBounds(344, 70, 49, 20);
+		getContentPane().add(fieldNumero);
+		fieldNumero.setColumns(10);
 		
-		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(185, 130, 140, 20);
-		getContentPane().add(textFieldCidade);
-		textFieldCidade.setColumns(10);
+		fieldCidade = new JTextField();
+		fieldCidade.setBounds(185, 130, 140, 20);
+		getContentPane().add(fieldCidade);
+		fieldCidade.setColumns(10);
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"", "SP", "RJ", "MG", "GO", "AL", "AC", "MA", "MS", "MT", "RS", "SC", "TO", "SE", "PA", "PR", "PE", "AM", "AP", "ES", "RR", "RO"}));
 		comboBoxEstado.setBounds(344, 130, 49, 20);
 		getContentPane().add(comboBoxEstado);
 		
-		textFieldCep = new JTextField();
-		textFieldCep.setBounds(185, 186, 86, 20);
-		getContentPane().add(textFieldCep);
-		textFieldCep.setColumns(10);
-		
 		JLabel lblData = new JLabel("DATA");
-		lblData.setBounds(34, 59, 46, 14);
+		lblData.setBounds(34, 48, 46, 14);
 		getContentPane().add(lblData);
 		
 		JLabel lblHora = new JLabel("HORA");
@@ -100,16 +100,26 @@ public class CadastrarLeilao extends JInternalFrame {
 		lblEstado.setBounds(344, 112, 46, 14);
 		getContentPane().add(lblEstado);
 		
-		JLabel lblCep = new JLabel("CEP");
-		lblCep.setBounds(185, 171, 46, 14);
-		getContentPane().add(lblCep);
-		
 		JLabel lblAgendamentoDeLeilao = new JLabel("Agendamento de Leilao");
 		lblAgendamentoDeLeilao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblAgendamentoDeLeilao.setBounds(111, 11, 194, 20);
 		getContentPane().add(lblAgendamentoDeLeilao);
 		
 		JButton btnContinuar = new JButton("Continuar");
+		btnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Leilao novoLeilao = new Leilao();
+				System.out.println("teste1");
+				System.out.println("teste2");
+				try {
+					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 		btnContinuar.setBounds(156, 236, 89, 23);
 		getContentPane().add(btnContinuar);
 

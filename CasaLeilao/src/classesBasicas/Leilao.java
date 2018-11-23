@@ -1,5 +1,8 @@
 package classesBasicas;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 import lombok.*;
@@ -10,16 +13,18 @@ import sun.security.x509.UniqueIdentity;
 public class Leilao {
 	private int idLeilao;
 	private LinkedList<Item> itens;
-	private String dataHoraInicio;
+	private Date dataHoraInicio;
 	private String bancoCnpj;
 	private String status;
+	private Endereco endereco;
 	
-	public Leilao(String dataHoraInicio, String bancoCnpj, String status) {
+	public Leilao() {
 		this.idLeilao=UnikeId.getIdKey();
 		this.itens=new LinkedList<Item>();
-		this.dataHoraInicio=dataHoraInicio;
-		this.bancoCnpj=bancoCnpj;
-		this.status=status;
+		this.dataHoraInicio=new Date();
+		this.bancoCnpj="PENDENTE";
+		this.status="PENDENTE";
+		this.endereco=null;
 	}
 	
 	public void updateLeilao(Leilao newLeilao) {
@@ -28,5 +33,10 @@ public class Leilao {
 		this.setBancoCnpj(newLeilao.getBancoCnpj());
 		this.setStatus(newLeilao.getStatus());
 	}
+	public void setDataHora(String data, String hora) throws ParseException{
+		String novaData = data+hora;
+		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyyhh:mm");
+		this.dataHoraInicio = mascara.parse(novaData);
+		}
 
 }
