@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import classesBasicas.CasaLeilao;
+import classesBasicas.*;
 import lombok.*;
 
 import javax.swing.JMenuBar;
@@ -30,6 +30,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.Toolkit;
+import java.awt.ComponentOrientation;
 
 public class TelaPrincipal extends JFrame {
 
@@ -40,6 +41,7 @@ public class TelaPrincipal extends JFrame {
 	public static CasaLeilao casa=new CasaLeilao();
 	public static boolean logon=false;
 	public static String loginCpf="";
+	public static int idLeilao;
 
 	
 
@@ -72,7 +74,7 @@ public class TelaPrincipal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\andre\\Documents\\GitHub\\CasaLeilao\\CasaLeilao\\src\\iconLeilao.png"));
 		setTitle("Leil\u00F5es System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 576, 599);
+		setBounds(100, 100, 757, 599);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -117,11 +119,8 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mnUsuario.add(mntmSair);
 		
-		JMenu mnLeiloeiro = new JMenu("Leiloeiro");
-		menuBar.add(mnLeiloeiro);
-		
 		JMenu mnLeiloes = new JMenu("Leil\u00F5es");
-		mnLeiloeiro.add(mnLeiloes);
+		menuBar.add(mnLeiloes);
 		
 		JMenuItem mntmCadastrarLeilao = new JMenuItem("Cadastrar Leil\u00E3o");
 		mntmCadastrarLeilao.addActionListener(new ActionListener() {
@@ -134,49 +133,30 @@ public class TelaPrincipal extends JFrame {
 		mnLeiloes.add(mntmCadastrarLeilao);
 		
 		JMenuItem mntmGerenciarLeiloes = new JMenuItem("Gerenciar Leiloes");
-		mnLeiloes.add(mntmGerenciarLeiloes);
-		
-		JMenu mnBancos = new JMenu("Bancos");
-		mnLeiloeiro.add(mnBancos);
-		
-		JMenuItem mntmCadastrarBanco = new JMenuItem("Cadastrar Banco");
-		mntmCadastrarBanco.addActionListener(new ActionListener() {
+		mntmGerenciarLeiloes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarBanco novoBanco = new CadastrarBanco();
-				desktopPane.add(novoBanco);
-				novoBanco.setVisible(true);
+				GerenciarLeiloes gerLeiloes = new GerenciarLeiloes();
+				desktopPane.add(gerLeiloes);
+				gerLeiloes.setVisible(true);
 			}
 		});
-		mnBancos.add(mntmCadastrarBanco);
-		
-		JMenuItem mntmGerenciarBancos = new JMenuItem("Gerenciar Bancos");
-		mnBancos.add(mntmGerenciarBancos);
-		
-		JMenuItem mntmAlterarItens = new JMenuItem("Alterar Itens");
-		mnLeiloeiro.add(mntmAlterarItens);
-		
-		JMenu mnCliente = new JMenu("Cliente");
-		menuBar.add(mnCliente);
+		mnLeiloes.add(mntmGerenciarLeiloes);
 		
 		JMenu mnLances = new JMenu("Lances");
-		mnCliente.add(mnLances);
+		menuBar.add(mnLances);
 		
 		JMenuItem mntmFazerLance = new JMenuItem("Fazer Lance");
 		mnLances.add(mntmFazerLance);
 		
 		JMenuItem mntmMeusLances = new JMenuItem("Meus Lances");
 		mnLances.add(mntmMeusLances);
-		
-		JMenuItem mntmConsultarLeiles = new JMenuItem("Consultar Leil\u00F5es");
-		mnCliente.add(mntmConsultarLeiles);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		desktopPane = new JDesktopPane();
-
-
+		desktopPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
 		desktopPane.setAlignmentY(Component.TOP_ALIGNMENT);
 		desktopPane.setAlignmentX(Component.LEFT_ALIGNMENT);

@@ -15,7 +15,8 @@ public class Leilao {
 	private LinkedList<Item> itens;
 	private Date dataHoraInicio;
 	private String bancoCnpj;
-	private String status;
+	private int status;
+	// (1) ABERTO - (2) EM ANDAMENTO - (3) FINALIZADO
 	private Endereco endereco;
 	
 	public Leilao() {
@@ -23,7 +24,7 @@ public class Leilao {
 		this.itens=new LinkedList<Item>();
 		this.dataHoraInicio=new Date();
 		this.bancoCnpj="PENDENTE";
-		this.status="PENDENTE";
+		this.status=1;
 		this.endereco=null;
 	}
 	
