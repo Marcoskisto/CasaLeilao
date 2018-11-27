@@ -62,7 +62,7 @@ public class MeuPerfil extends JInternalFrame {
 		//CARREGA DADOS DO USUÁRIO NA TELA MeuPerfil
 		Cliente usuario= TelaPrincipal.casa.getClientePorCpf(TelaPrincipal.loginCpf);
 		textCpf.setText(usuario.getCpf());
-		textNome.setText(usuario.getNome());
+		textNome.setText(usuario.getNome()); 
 		textSenha.setText(usuario.getSenha());
 		
 		JButton btnSalvar = new JButton("Salvar");

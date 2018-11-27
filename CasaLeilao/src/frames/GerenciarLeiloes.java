@@ -94,7 +94,7 @@ public class GerenciarLeiloes extends JInternalFrame {
 				
 			}
 		});
-		btnAlterar.setBounds(61, 287, 89, 23);
+		btnAlterar.setBounds(110, 287, 89, 23);
 		getContentPane().add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -106,11 +106,11 @@ public class GerenciarLeiloes extends JInternalFrame {
 				}
 			}
 		});
-		btnExcluir.setBounds(191, 287, 89, 23);
+		btnExcluir.setBounds(271, 287, 89, 23);
 		getContentPane().add(btnExcluir);
 		
 		JButton btnGerenciarItens = new JButton("Editar ITENS");
-		btnGerenciarItens.setBounds(319, 287, 102, 23);
+		btnGerenciarItens.setBounds(415, 287, 102, 23);
 		getContentPane().add(btnGerenciarItens);
 
 	}

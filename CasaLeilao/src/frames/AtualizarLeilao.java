@@ -19,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class AtualizarLeilao extends JInternalFrame {
 	private JTextField fieldRua;
@@ -51,7 +52,7 @@ public class AtualizarLeilao extends JInternalFrame {
 	public AtualizarLeilao() {
 		setClosable(true);
 		setTitle("Atualizar Leil\u00E3o");
-		setBounds(100, 100, 451, 420);
+		setBounds(100, 100, 1122, 420);
 		getContentPane().setLayout(null);
 		
 		fieldData = new JFormattedTextField();
@@ -121,7 +122,7 @@ public class AtualizarLeilao extends JInternalFrame {
 				try {
 					
 					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
-					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), comboBoxEstado.getSelectedItem().toString()));
+					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), comboBoxEstado.getSelectedIndex()));
 					TelaPrincipal.casa.addLeilao(novoLeilao);
 					System.out.println(TelaPrincipal.casa.getLeilaoPorId(1000001).getIdLeilao());
 					
@@ -177,6 +178,12 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldNumero.setText(leilaoAtual.getEndereco().getNumero());
 		fieldRua.setText(leilaoAtual.getEndereco().getRua());
 		comboBoxEstado.setSelectedIndex(leilaoAtual.getStatus());
-
+		fieldData.setText(leilaoAtual.getDataHoraInicio().getDay()+"/"+leilaoAtual.getDataHoraInicio().getMonth()+"/"+leilaoAtual.getDataHoraInicio().getYear());
+		fieldHora.setText(leilaoAtual.getDataHoraInicio().getHours()+":"+leilaoAtual.getDataHoraInicio().getMinutes());
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(447, 64, 638, 238);
+		getContentPane().add(scrollPane);
+		
 	}
 }

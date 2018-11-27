@@ -107,7 +107,7 @@ public class CadastrarLeilao extends JInternalFrame {
 		
 		JLabel lblAgendamentoDeLeilao = new JLabel("Agendamento de Leilao");
 		lblAgendamentoDeLeilao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAgendamentoDeLeilao.setBounds(131, 0, 194, 20);
+		lblAgendamentoDeLeilao.setBounds(131, 18, 194, 20);
 		getContentPane().add(lblAgendamentoDeLeilao);
 		
 		JButton btnContinuar = new JButton("Continuar");
