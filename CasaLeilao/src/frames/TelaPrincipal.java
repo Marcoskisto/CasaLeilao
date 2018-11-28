@@ -43,6 +43,7 @@ public class TelaPrincipal extends JFrame {
 	public static String loginCpf="";
 	public static int idLeilao;
 
+
 	
 
 	/**
@@ -71,7 +72,7 @@ public class TelaPrincipal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\andre\\Documents\\GitHub\\CasaLeilao\\CasaLeilao\\src\\iconLeilao.png"));
 		setTitle("Leil\u00F5es System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 757, 599);
+		setBounds(100, 100, 1200, 860);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

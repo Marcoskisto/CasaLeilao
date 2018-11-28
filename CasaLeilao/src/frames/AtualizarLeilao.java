@@ -28,6 +28,7 @@ public class AtualizarLeilao extends JInternalFrame {
 	private JFormattedTextField fieldData;
 	private JTextField fieldBanco;
 	private JTextField fieldIdLeilao;
+	private JTextField fieldEstado;
 
 	/**
 	 * Launch the application.
@@ -52,7 +53,7 @@ public class AtualizarLeilao extends JInternalFrame {
 	public AtualizarLeilao() {
 		setClosable(true);
 		setTitle("Atualizar Leil\u00E3o");
-		setBounds(100, 100, 1122, 420);
+		setBounds(100, 100, 417, 420);
 		getContentPane().setLayout(null);
 		
 		fieldData = new JFormattedTextField();
@@ -82,7 +83,7 @@ public class AtualizarLeilao extends JInternalFrame {
 		
 		JComboBox comboBoxEstado = new JComboBox();
 		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"", "SP", "RJ", "MG", "GO", "AL", "AC", "MA", "MS", "MT", "RS", "SC", "TO", "SE", "PA", "PR", "PE", "AM", "AP", "ES", "RR", "RO"}));
-		comboBoxEstado.setBounds(344, 211, 49, 20);
+		comboBoxEstado.setBounds(344, 260, 49, 20);
 		getContentPane().add(comboBoxEstado);
 		
 		JLabel lblData = new JLabel("DATA");
@@ -122,7 +123,7 @@ public class AtualizarLeilao extends JInternalFrame {
 				try {
 					
 					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
-					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), comboBoxEstado.getSelectedIndex()));
+					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText()));
 					TelaPrincipal.casa.addLeilao(novoLeilao);
 					System.out.println(TelaPrincipal.casa.getLeilaoPorId(1000001).getIdLeilao());
 					
@@ -178,12 +179,13 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldNumero.setText(leilaoAtual.getEndereco().getNumero());
 		fieldRua.setText(leilaoAtual.getEndereco().getRua());
 		comboBoxEstado.setSelectedIndex(leilaoAtual.getStatus());
-		fieldData.setText(leilaoAtual.getDataHoraInicio().getDay()+"/"+leilaoAtual.getDataHoraInicio().getMonth()+"/"+leilaoAtual.getDataHoraInicio().getYear());
-		fieldHora.setText(leilaoAtual.getDataHoraInicio().getHours()+":"+leilaoAtual.getDataHoraInicio().getMinutes());
+		fieldData.setText(leilaoAtual.getDataFormatada());
+		fieldHora.setText(leilaoAtual.getHoraFormatada());
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(447, 64, 638, 238);
-		getContentPane().add(scrollPane);
+		fieldEstado = new JTextField();
+		fieldEstado.setBounds(340, 211, 53, 20);
+		getContentPane().add(fieldEstado);
+		fieldEstado.setColumns(10);
 		
 	}
 }

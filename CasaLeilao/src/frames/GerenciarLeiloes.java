@@ -109,8 +109,16 @@ public class GerenciarLeiloes extends JInternalFrame {
 		btnExcluir.setBounds(271, 287, 89, 23);
 		getContentPane().add(btnExcluir);
 		
-		JButton btnGerenciarItens = new JButton("Editar ITENS");
-		btnGerenciarItens.setBounds(415, 287, 102, 23);
+		JButton btnGerenciarItens = new JButton("GERENCIAR ITENS");
+		btnGerenciarItens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaPrincipal.idLeilao = Integer.parseInt((String) tabelaLeiloes.getValueAt(table.getSelectedRow(),0));
+				GerenciarItens itensLeilao = new GerenciarItens();
+				TelaPrincipal.desktopPane.add(itensLeilao);
+				itensLeilao.setVisible(true);
+			}
+		});
+		btnGerenciarItens.setBounds(415, 287, 162, 23);
 		getContentPane().add(btnGerenciarItens);
 
 	}

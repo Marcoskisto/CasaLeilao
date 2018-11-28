@@ -25,6 +25,7 @@ public class CadastrarLeilao extends JInternalFrame {
 	private JTextField fieldNumero;
 	private JTextField fieldCidade;
 	private JFormattedTextField fieldData;
+	private JTextField fieldEstado;
 
 	/**
 	 * Launch the application.
@@ -76,11 +77,6 @@ public class CadastrarLeilao extends JInternalFrame {
 		getContentPane().add(fieldCidade);
 		fieldCidade.setColumns(10);
 		
-		JComboBox comboBoxEstado = new JComboBox();
-		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"", "SP", "RJ", "MG", "GO", "AL", "AC", "MA", "MS", "MT", "RS", "SC", "TO", "SE", "PA", "PR", "PE", "AM", "AP", "ES", "RR", "RO"}));
-		comboBoxEstado.setBounds(344, 148, 49, 20);
-		getContentPane().add(comboBoxEstado);
-		
 		JLabel lblData = new JLabel("DATA");
 		lblData.setBounds(35, 73, 46, 14);
 		getContentPane().add(lblData);
@@ -118,7 +114,7 @@ public class CadastrarLeilao extends JInternalFrame {
 				try {
 					
 					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
-					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), comboBoxEstado.getSelectedIndex()));
+					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText()));
 					TelaPrincipal.casa.addLeilao(novoLeilao);
 					System.out.println(TelaPrincipal.casa.getLeilaoPorId(1000001).getIdLeilao());
 					
@@ -147,6 +143,11 @@ public class CadastrarLeilao extends JInternalFrame {
 		JLabel lblEndereo = new JLabel("ENDERE\u00C7O");
 		lblEndereo.setBounds(235, 49, 76, 14);
 		getContentPane().add(lblEndereo);
+		
+		fieldEstado = new JTextField();
+		fieldEstado.setBounds(344, 148, 49, 20);
+		getContentPane().add(fieldEstado);
+		fieldEstado.setColumns(10);
 
 	}
 }

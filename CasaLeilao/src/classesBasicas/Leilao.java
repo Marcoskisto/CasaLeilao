@@ -39,5 +39,14 @@ public class Leilao {
 		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyyhh:mm");
 		this.dataHoraInicio = mascara.parse(novaData);
 		}
+	public String getDataFormatada() {
+		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyy");
+		return mascara.format(this.dataHoraInicio);
+
+	}
+	public String getHoraFormatada() {
+		SimpleDateFormat mascara= new SimpleDateFormat("hh:mm");
+		return mascara.format(this.dataHoraInicio);
+	}
 
 }
