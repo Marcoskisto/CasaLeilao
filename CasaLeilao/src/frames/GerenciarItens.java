@@ -21,6 +21,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.JScrollPane;
 
 public class GerenciarItens extends JInternalFrame {
 	private JTextField fieldAno;
@@ -35,6 +39,7 @@ public class GerenciarItens extends JInternalFrame {
 	private JTextField fieldImovelNumero;
 	private JTextField fieldImovelCidade;
 	private JTextField fieldImovelEstado;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -56,6 +61,7 @@ public class GerenciarItens extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public GerenciarItens() {
+		setClosable(true);
 		setTitle("Gerenciar Itens");
 		setBounds(100, 100, 1073, 527);
 		getContentPane().setLayout(null);
@@ -84,7 +90,7 @@ public class GerenciarItens extends JInternalFrame {
 		getContentPane().add(lblLanceMnimo);
 		
 		JLabel lblTipo = new JLabel("TIPO");
-		lblTipo.setBounds(292, 40, 46, 14);
+		lblTipo.setBounds(308, 54, 46, 14);
 		getContentPane().add(lblTipo);
 		
 		JLabel lblDescrioDoBem = new JLabel("Descri\u00E7\u00E3o do bem");
@@ -201,7 +207,7 @@ public class GerenciarItens extends JInternalFrame {
 		btnIncluirItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-
+				/*
 				//CONTINUAR
 				if(Integer.valueOf(comboBoxTipo.getSelectedIndex())==0) {
 					Veiculo novoVeiculo = new Veiculo();
@@ -212,7 +218,6 @@ public class GerenciarItens extends JInternalFrame {
 					novoVeiculo.setAno(fieldAno.getText());
 					novoVeiculo.setDescricao(fieldDescricao.getText());
 					novoVeiculo.setLanceMinimo(Double.valueOf(fieldLance.getText()));
-					novoVeiculo.setTipo(Integer.valueOf(comboBoxTipo.getSelectedIndex()));
 					
 				}else {
 					Imovel novoImovel = new Imovel();
@@ -222,8 +227,8 @@ public class GerenciarItens extends JInternalFrame {
 					novoImovel.setAno(fieldAno.getText());
 					novoImovel.setDescricao(fieldDescricao.getText());
 					novoImovel.setLanceMinimo(Double.valueOf(fieldLance.getText()));
-					novoImovel.setTipo(Integer.valueOf(comboBoxTipo.getSelectedIndex()));	
 				}
+				*/
 				
 			}
 		});
@@ -239,24 +244,14 @@ public class GerenciarItens extends JInternalFrame {
 		getContentPane().add(btnExcluir);
 		
 		JRadioButton rdbtnVeculo = new JRadioButton("Ve\u00EDculo");
-		rdbtnVeculo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fieldVeiculoCor.setEnabled(true);
-				fieldVeiculoModelo.setEnabled(true);
-				fieldVeiculoPlaca.setEnabled(true);
-				
-				fieldImoveilAndares.setEnabled(false);
-				fieldImovelArea.setEnabled(false);
-				fieldImovelCidade.setEnabled(false);
-				fieldImovelEstado.setEnabled(false);
-				fieldImovelNumero.setEnabled(false);
-				fieldImovelRua.setEnabled(false);
-			}
-		});
-		rdbtnVeculo.setBounds(279, 50, 59, 23);
+		rdbtnVeculo.setBounds(266, 68, 69, 23);
 		getContentPane().add(rdbtnVeculo);
+		rdbtnVeculo.setActionCommand("veiculo");
 		
 		JRadioButton rdbtnImvel = new JRadioButton("Im\u00F3vel");
+		rdbtnImvel.setBounds(337, 68, 66, 23);
+		getContentPane().add(rdbtnImvel);
+		rdbtnImvel.setActionCommand("imovel");
 		rdbtnImvel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fieldVeiculoCor.setEnabled(false);
@@ -269,9 +264,37 @@ public class GerenciarItens extends JInternalFrame {
 				fieldImovelEstado.setEnabled(true);
 				fieldImovelNumero.setEnabled(true);
 				fieldImovelRua.setEnabled(true);
+
+				
 			}
 		});
-		rdbtnImvel.setBounds(279, 68, 69, 23);
-		getContentPane().add(rdbtnImvel);
+		rdbtnVeculo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fieldVeiculoCor.setEnabled(true);
+				fieldVeiculoModelo.setEnabled(true);
+				fieldVeiculoPlaca.setEnabled(true);
+				
+				fieldImoveilAndares.setEnabled(false);
+				fieldImovelArea.setEnabled(false);
+				fieldImovelCidade.setEnabled(false);
+				fieldImovelEstado.setEnabled(false);
+				fieldImovelNumero.setEnabled(false);
+				fieldImovelRua.setEnabled(false);			
+			}
+			
+		});
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnImvel);
+		bg.add(rdbtnVeculo);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(520, 114, 485, 284);
+		getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
 	}
 }
+
