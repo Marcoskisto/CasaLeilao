@@ -15,7 +15,7 @@ public class Leilao {
 	private LinkedList<Item> itens;
 	private Date dataHoraInicio;
 	private String bancoCnpj;
-	private int status;
+	private StatusLeilao status;
 	// (1) ABERTO - (2) EM ANDAMENTO - (3) FINALIZADO
 	private Endereco endereco;
 	
@@ -23,8 +23,8 @@ public class Leilao {
 		this.idLeilao=UnikeId.getIdKey();
 		this.itens=new LinkedList<Item>();
 		this.dataHoraInicio=new Date();
-		this.bancoCnpj="PENDENTE";
-		this.status=1;
+		this.bancoCnpj="pendente";
+		this.status= StatusLeilao.PENDENTE;
 		this.endereco=null;
 	}
 	
@@ -47,6 +47,15 @@ public class Leilao {
 	public String getHoraFormatada() {
 		SimpleDateFormat mascara= new SimpleDateFormat("hh:mm");
 		return mascara.format(this.dataHoraInicio);
+	}
+	public Item getItemPorId(int id){
+		for(Item item: this.itens) {
+			if (item.getIdItem()==id) return item;
+		}
+		return null;
+	}
+	public void removeItemPorId(int id) {
+		this.itens.remove(this.getItemPorId(id));
 	}
 
 }

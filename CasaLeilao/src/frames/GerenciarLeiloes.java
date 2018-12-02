@@ -12,8 +12,13 @@ import classesBasicas.Leilao;
 import javafx.scene.chart.PieChart.Data;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Color;
 
 public class GerenciarLeiloes extends JInternalFrame {
 	private JTable table;
@@ -29,6 +34,8 @@ public class GerenciarLeiloes extends JInternalFrame {
 				try {
 					GerenciarLeiloes frame = new GerenciarLeiloes();
 					frame.setVisible(true);
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,7 +43,16 @@ public class GerenciarLeiloes extends JInternalFrame {
 		});
 
 	}
-	
+
+
+	public void fecharJanela() {
+		try {
+			setClosed(true);
+		} catch (PropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public static void carregarDadosLeilao() {
 		tabelaLeiloes = new DefaultTableModel(
 				dadosDaTabela, new String[] {
@@ -56,10 +72,10 @@ public class GerenciarLeiloes extends JInternalFrame {
 		for(Leilao leilao: TelaPrincipal.casa.getLeiloes()) {
 			linha = new String[5];
 			linha[0] = Integer.toString(leilao.getIdLeilao());
-			linha[1] = leilao.getDataHoraInicio().toGMTString();
+			linha[1] = leilao.getDataHoraInicio().toLocaleString();
 			linha[2] = leilao.getBancoCnpj();
 			linha[3] = Integer.toString(leilao.getItens().size());
-			linha[4] = Integer.toString(leilao.getStatus());
+			linha[4] = leilao.getStatus().toString();
 
 			tabelaLeiloes.addRow(linha);
 			
@@ -71,11 +87,11 @@ public class GerenciarLeiloes extends JInternalFrame {
 	public GerenciarLeiloes() {
 		setClosable(true);
 		setTitle("Gerenciar Leil\u00F5es");
-		setBounds(100, 100, 654, 360);
+		setBounds(100, 100, 950, 479);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPaneLeiloes = new JScrollPane();
-		scrollPaneLeiloes.setBounds(0, 30, 638, 238);
+		scrollPaneLeiloes.setBounds(0, 70, 934, 238);
 		getContentPane().add(scrollPaneLeiloes);
 		
 		carregarDadosLeilao();
@@ -84,7 +100,8 @@ public class GerenciarLeiloes extends JInternalFrame {
 		scrollPaneLeiloes.setViewportView(table);
 		
 		
-		JButton btnAlterar = new JButton("Alterar");
+		JButton btnAlterar = new JButton("3\u00BA - Editar Leil\u00E3o / Status");
+		btnAlterar.setToolTipText("Selecione um leil\u00E3o primeiro");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaPrincipal.idLeilao = Integer.parseInt((String) tabelaLeiloes.getValueAt(table.getSelectedRow(),0));
@@ -92,12 +109,17 @@ public class GerenciarLeiloes extends JInternalFrame {
 				TelaPrincipal.desktopPane.add(leilao);
 				leilao.setVisible(true);
 				
+				//fecha janela atual
+				fecharJanela();
+				
 			}
 		});
-		btnAlterar.setBounds(110, 287, 89, 23);
+		btnAlterar.setBounds(501, 360, 183, 37);
 		getContentPane().add(btnAlterar);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		JButton btnExcluir = new JButton("Excluir Leil\u00E3o");
+		btnExcluir.setToolTipText("Selecione um leil\u00E3o primeiro");
+		btnExcluir.setBackground(new Color(255, 140, 0));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(TelaPrincipal.casa.getLeiloes().size()>0) {
@@ -106,20 +128,51 @@ public class GerenciarLeiloes extends JInternalFrame {
 				}
 			}
 		});
-		btnExcluir.setBounds(271, 287, 89, 23);
+		btnExcluir.setBounds(721, 360, 175, 37);
 		getContentPane().add(btnExcluir);
 		
-		JButton btnGerenciarItens = new JButton("GERENCIAR ITENS");
+		JButton btnGerenciarItens = new JButton("2\u00BA - Gerenciar ITENS\r\n do Leilao");
+		btnGerenciarItens.setBackground(new Color(152, 251, 152));
+		btnGerenciarItens.setToolTipText("Selecione um leil\u00E3o primeiro");
 		btnGerenciarItens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaPrincipal.idLeilao = Integer.parseInt((String) tabelaLeiloes.getValueAt(table.getSelectedRow(),0));
 				GerenciarItens itensLeilao = new GerenciarItens();
 				TelaPrincipal.desktopPane.add(itensLeilao);
 				itensLeilao.setVisible(true);
+				
+				//fecha janela atual
+				fecharJanela();
 			}
 		});
-		btnGerenciarItens.setBounds(415, 287, 162, 23);
+		btnGerenciarItens.setBounds(261, 360, 198, 37);
 		getContentPane().add(btnGerenciarItens);
+		
+		
+		JButton btnCadastrar = new JButton("1\u00BA - Cadastrar Leil\u00E3o");
+		btnCadastrar.setBackground(new Color(144, 238, 144));
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//ABRE A JANELA DE CADASTRAR LEILÃO
+				CadastrarLeilao novoLeilao = new CadastrarLeilao();
+				TelaPrincipal.desktopPane.add(novoLeilao);
+				novoLeilao.setVisible(true);
+				
+				//FECHA A JANELA A JANELA ATUAL AO ABRIR A DE CADASTRAR LEILAO 
+				fecharJanela();
+
+			}
+		});
+		btnCadastrar.setBounds(45, 360, 175, 37);
+		getContentPane().add(btnCadastrar);
+		
+		JLabel lblLeilesCadastrados = new JLabel("LEIL\u00D5ES CADASTRADOS");
+		lblLeilesCadastrados.setBounds(403, 0, 150, 19);
+		getContentPane().add(lblLeilesCadastrados);
+		
+		JLabel lblPassoCadastrarO = new JLabel("1\u00BA Passo:  Cadastrar o leilao - 2\u00BA: selecionar o Leil\u00E3o e \"Gerenciar Itens\" - 3\u00BA: Alterar Status do Leilao - Ap\u00F3s isso o cliente pode efetuar os lances.");
+		lblPassoCadastrarO.setBounds(10, 312, 772, 25);
+		getContentPane().add(lblPassoCadastrarO);
 
 	}
 }

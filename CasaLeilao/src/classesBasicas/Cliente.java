@@ -7,24 +7,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter 
 
-public class Cliente {
+public class Cliente  {
 	private String nome;
 	private String cpf;
 	private String senha;
-	private LinkedList<Lance> lances;
+	
 	
 	public Cliente(String nome,String cpf,String senha) {
 		this.nome=nome;
 		this.cpf=cpf;
 		this.senha=senha;
-		this.lances=new LinkedList<Lance>();
+
 	}
 	public void updateCliente(Cliente newCliente) {
 		this.nome=newCliente.getNome();
 		this.senha=newCliente.getSenha();
-		this.lances=new LinkedList<Lance>();
 	}
 	   
 }

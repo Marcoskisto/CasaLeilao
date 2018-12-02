@@ -27,6 +27,8 @@ import java.awt.event.FocusEvent;
 import javax.swing.JLayeredPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyVetoException;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.Toolkit;
@@ -39,6 +41,7 @@ public class TelaPrincipal extends JFrame {
 	
 	@Getter @Setter
 	public static CasaLeilao casa=new CasaLeilao();
+	public static Leilao leilao;
 	public static boolean logon=false;
 	public static String loginCpf="";
 	public static int idLeilao;
@@ -62,6 +65,12 @@ public class TelaPrincipal extends JFrame {
 				}
 			}	
 		});
+	}
+	
+	public static void abrirTelaGerenciarLeiloes() {
+		GerenciarLeiloes gerLeiloes = new GerenciarLeiloes();
+		desktopPane.add(gerLeiloes);
+		gerLeiloes.setVisible(true);
 	}
 
 	/**
@@ -120,22 +129,10 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnLeiloes = new JMenu("Leil\u00F5es");
 		menuBar.add(mnLeiloes);
 		
-		JMenuItem mntmCadastrarLeilao = new JMenuItem("Cadastrar Leil\u00E3o");
-		mntmCadastrarLeilao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastrarLeilao novoLeilao = new CadastrarLeilao();
-				desktopPane.add(novoLeilao);
-				novoLeilao.setVisible(true);
-			}
-		});
-		mnLeiloes.add(mntmCadastrarLeilao);
-		
 		JMenuItem mntmGerenciarLeiloes = new JMenuItem("Gerenciar Leiloes");
 		mntmGerenciarLeiloes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GerenciarLeiloes gerLeiloes = new GerenciarLeiloes();
-				desktopPane.add(gerLeiloes);
-				gerLeiloes.setVisible(true);
+				abrirTelaGerenciarLeiloes();
 			}
 		});
 		mnLeiloes.add(mntmGerenciarLeiloes);
@@ -144,6 +141,14 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnLances);
 		
 		JMenuItem mntmFazerLance = new JMenuItem("Fazer Lance");
+		mntmFazerLance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SelecionarLeilaoParaLance novaTela = new SelecionarLeilaoParaLance();
+				TelaPrincipal.desktopPane.add(novaTela);
+				novaTela.setVisible(true);
+				
+			}
+		});
 		mnLances.add(mntmFazerLance);
 		
 		JMenuItem mntmMeusLances = new JMenuItem("Meus Lances");
@@ -155,9 +160,6 @@ public class TelaPrincipal extends JFrame {
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
-		desktopPane.setAlignmentY(Component.TOP_ALIGNMENT);
-		desktopPane.setAlignmentX(Component.LEFT_ALIGNMENT);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 	}
 }

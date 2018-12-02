@@ -10,6 +10,7 @@ public class Item {
 	private double lanceMinimo;
 	private String ano;
 	private int tipo;
+	private int idMenorLance;
 	
 	public Item() {
 		this.idItem=UnikeId.getIdKey();
@@ -21,4 +22,9 @@ public class Item {
 		this.setAno(item.getAno());
 		this.setTipo(item.getTipo());
 	}
+	
+	public void setSeMenorLance(int idLance) {
+		if()
+	}
+	
 }

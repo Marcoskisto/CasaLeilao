@@ -6,8 +6,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.plaf.DesktopPaneUI;
 
-import classesBasicas.Endereco;
-import classesBasicas.Leilao;
+import classesBasicas.*;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JList;
@@ -17,6 +16,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -53,7 +53,7 @@ public class AtualizarLeilao extends JInternalFrame {
 	public AtualizarLeilao() {
 		setClosable(true);
 		setTitle("Atualizar Leil\u00E3o");
-		setBounds(100, 100, 417, 420);
+		setBounds(100, 100, 430, 420);
 		getContentPane().setLayout(null);
 		
 		fieldData = new JFormattedTextField();
@@ -72,7 +72,7 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldRua.setColumns(10);
 		
 		fieldNumero = new JTextField();
-		fieldNumero.setBounds(344, 141, 49, 20);
+		fieldNumero.setBounds(335, 141, 49, 20);
 		getContentPane().add(fieldNumero);
 		fieldNumero.setColumns(10);
 		
@@ -80,11 +80,6 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldCidade.setBounds(185, 211, 140, 20);
 		getContentPane().add(fieldCidade);
 		fieldCidade.setColumns(10);
-		
-		JComboBox comboBoxEstado = new JComboBox();
-		comboBoxEstado.setModel(new DefaultComboBoxModel(new String[] {"", "SP", "RJ", "MG", "GO", "AL", "AC", "MA", "MS", "MT", "RS", "SC", "TO", "SE", "PA", "PR", "PE", "AM", "AP", "ES", "RR", "RO"}));
-		comboBoxEstado.setBounds(344, 260, 49, 20);
-		getContentPane().add(comboBoxEstado);
 		
 		JLabel lblData = new JLabel("DATA");
 		lblData.setBounds(35, 125, 46, 14);
@@ -99,7 +94,7 @@ public class AtualizarLeilao extends JInternalFrame {
 		getContentPane().add(lblRua);
 		
 		JLabel lblN = new JLabel("N\u00BA");
-		lblN.setBounds(344, 125, 46, 14);
+		lblN.setBounds(335, 125, 46, 14);
 		getContentPane().add(lblN);
 		
 		JLabel lblCidade = new JLabel("CIDADE");
@@ -107,25 +102,44 @@ public class AtualizarLeilao extends JInternalFrame {
 		getContentPane().add(lblCidade);
 		
 		JLabel lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(344, 197, 46, 14);
+		lblEstado.setBounds(335, 197, 60, 14);
 		getContentPane().add(lblEstado);
 		
 		JLabel lblAgendamentoDeLeilao = new JLabel("ATUALIZAR LEIL\u00C3O");
 		lblAgendamentoDeLeilao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblAgendamentoDeLeilao.setBounds(185, 11, 194, 20);
 		getContentPane().add(lblAgendamentoDeLeilao);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(StatusLeilao.values()));
+		comboBox.setEditable(true);
+		comboBox.setBounds(197, 282, 122, 20);
+		getContentPane().add(comboBox);
 		
 		JButton btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Leilao novoLeilao = new Leilao();
 				
 				try {
+					//atualizar leilão cadastrado
+					// - busca o leilão pelo id
+					Leilao leilaoAtualizado = TelaPrincipal.casa.getLeilaoPorId(TelaPrincipal.idLeilao);
+					// - atualiza a data e endereço do leilão
+					Endereco novoEndereco = new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText());
+					leilaoAtualizado.setDataHora(fieldData.getText(), fieldHora.getText());
+					leilaoAtualizado.setEndereco(novoEndereco);
+					leilaoAtualizado.setStatus((StatusLeilao) comboBox.getSelectedItem());
 					
-					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
-					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText()));
-					TelaPrincipal.casa.addLeilao(novoLeilao);
-					System.out.println(TelaPrincipal.casa.getLeilaoPorId(1000001).getIdLeilao());
+					//abrir Tela gerenciarLeilao
+					TelaPrincipal.abrirTelaGerenciarLeiloes();
+					
+					//fecha janela atual
+					try {
+						setClosed(true);
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -151,11 +165,6 @@ public class AtualizarLeilao extends JInternalFrame {
 		getContentPane().add(fieldBanco);
 		fieldBanco.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ABERTO", "EM ANDAMENTO", "FINALIZADO"}));
-		comboBox.setEditable(true);
-		comboBox.setBounds(197, 282, 122, 20);
-		getContentPane().add(comboBox);
 		
 		JLabel lblStatus = new JLabel("STATUS");
 		lblStatus.setBounds(197, 266, 46, 14);
@@ -178,12 +187,11 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldCidade.setText(leilaoAtual.getEndereco().getCidade());
 		fieldNumero.setText(leilaoAtual.getEndereco().getNumero());
 		fieldRua.setText(leilaoAtual.getEndereco().getRua());
-		comboBoxEstado.setSelectedIndex(leilaoAtual.getStatus());
 		fieldData.setText(leilaoAtual.getDataFormatada());
 		fieldHora.setText(leilaoAtual.getHoraFormatada());
 		
 		fieldEstado = new JTextField();
-		fieldEstado.setBounds(340, 211, 53, 20);
+		fieldEstado.setBounds(335, 211, 53, 20);
 		getContentPane().add(fieldEstado);
 		fieldEstado.setColumns(10);
 		

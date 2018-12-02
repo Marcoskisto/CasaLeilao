@@ -17,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
@@ -109,20 +110,29 @@ public class CadastrarLeilao extends JInternalFrame {
 		JButton btnContinuar = new JButton("Continuar");
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Leilao novoLeilao = new Leilao();
 				
+				//add novo leilão à lista de leilões
+				Leilao novoLeilao = new Leilao();
 				try {
-					
 					novoLeilao.setDataHora(fieldData.getText(), fieldHora.getText());
 					novoLeilao.setEndereco(new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText()));
 					TelaPrincipal.casa.addLeilao(novoLeilao);
-					System.out.println(TelaPrincipal.casa.getLeilaoPorId(1000001).getIdLeilao());
+					
 					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
+				//fecha tela atual
+				try {
+					setClosed(true);
+				} catch (PropertyVetoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//volta para a tela gerenciarLeiloes
+				TelaPrincipal.abrirTelaGerenciarLeiloes();
 			}
 		});
 		btnContinuar.setBounds(185, 265, 89, 23);

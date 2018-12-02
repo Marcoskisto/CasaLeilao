@@ -9,11 +9,13 @@ public class CasaLeilao {
 	private LinkedList<Leilao> leiloes;
 	private LinkedList<Cliente> clientes;
 	private LinkedList<Banco> bancos;
+	private LinkedList<Lance> lances;
 	
 	public CasaLeilao() {
 		this.leiloes = new LinkedList<Leilao>();
 		this.clientes = new LinkedList<Cliente>();
 		this.bancos = new LinkedList<Banco>();
+		this.lances = new LinkedList<Lance>();
 	}
 
 
@@ -59,12 +61,30 @@ public class CasaLeilao {
 		bancos.remove(bancos.indexOf(this.getBancoPorCnpj(cnpj)));
 	}
 	
-	public LinkedList<Lance> buscaLancesdoItem(int idItem) {
+	//retorna lances por item ou cpf ou os dois o valor -999 deve ser passado para a variavel desconsiderada
+	public LinkedList<Lance> buscaLances(int idItem, String cpf) {
 		LinkedList<Lance> lances = new LinkedList<Lance>();
-		for(Cliente c: this.getClientes()) {
-			for(Lance l: c.getLances()) {
-				if(l.getIdItem()==idItem)
-				lances.add(l);
+		// idItem e cpf VALIDOS
+		if(idItem !=-999 && !cpf.equals("-999")) {
+			for(Lance l: this.lances) {
+				if (l.getIdItem() == idItem && l.getCpfCliente().equals(cpf)) {
+					lances.add(l);
+				}
+			}
+			return lances;
+			// apenas idItem VALIDO
+		}else if (idItem != -999 && cpf.equals("-999")) {
+			for(Lance l: this.lances) {
+				if (l.getIdItem() == idItem) {
+					lances.add(l);
+				}
+			}
+			// apenas cpf VALIDO
+		}else if(idItem == -999 & !cpf.equals("-999")) {
+			for(Lance l: this.lances) {
+				if (!cpf.equals("-999")) {
+					lances.add(l);
+				}
 			}
 		}
 	return lances;
@@ -77,6 +97,12 @@ public class CasaLeilao {
 			return true;
 		}
 		return false;
+	}
+
+
+	public void addLance(Lance novoLance) {
+		// 
+		this.lances.add(novoLance);
 	}
 
 
