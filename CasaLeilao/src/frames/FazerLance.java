@@ -122,9 +122,12 @@ public class FazerLance extends JInternalFrame {
 		JButton btnNewButton = new JButton("Registrar Lance");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int idItem = table.getSelectedRow();
+				int idItem = Integer.parseInt((String) tabelaItens.getValueAt(table.getSelectedRow(), 0));
 				Lance novoLance = new Lance(idItem,TelaPrincipal.loginCpf, Double.parseDouble(fieldValor.getText()));
-				TelaPrincipal.casa.addLance(novoLance);
+				
+				//Cadastra novo lance na lista de lances do CasaLeilao
+				//Cadastra o id do lance no respectivo item se o lance for o menor ja incluído
+				TelaPrincipal.casa.addLance(novoLance, TelaPrincipal.idLeilao);
 			}
 		});
 		btnNewButton.setBounds(285, 425, 147, 38);

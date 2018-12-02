@@ -26,6 +26,7 @@ public class AtualizarLeilao extends JInternalFrame {
 	private JTextField fieldNumero;
 	private JTextField fieldCidade;
 	private JFormattedTextField fieldData;
+	private JFormattedTextField fieldDataFim;
 	private JTextField fieldBanco;
 	private JTextField fieldIdLeilao;
 	private JTextField fieldEstado;
@@ -53,67 +54,73 @@ public class AtualizarLeilao extends JInternalFrame {
 	public AtualizarLeilao() {
 		setClosable(true);
 		setTitle("Atualizar Leil\u00E3o");
-		setBounds(100, 100, 430, 420);
+		setBounds(100, 100, 430, 415);
 		getContentPane().setLayout(null);
 		
 		fieldData = new JFormattedTextField();
 		fieldData.setToolTipText("");
-		fieldData.setBounds(35, 141, 85, 20);
+		fieldData.setBounds(81, 110, 85, 20);
 		getContentPane().add(fieldData);
 		
 		JFormattedTextField fieldHora = new JFormattedTextField();
 		fieldHora.setToolTipText("##:##");
-		fieldHora.setBounds(35, 211, 85, 20);
+		fieldHora.setBounds(81, 132, 85, 20);
 		getContentPane().add(fieldHora);
 		
+		fieldDataFim = new JFormattedTextField();
+		fieldDataFim.setToolTipText("");
+		fieldDataFim.setBounds(81, 110, 85, 20);
+		getContentPane().add(fieldDataFim);
+		
+		JFormattedTextField fieldHoraFim = new JFormattedTextField();
+		fieldHoraFim.setToolTipText("##:##");
+		fieldHoraFim.setBounds(81, 132, 85, 20);
+		getContentPane().add(fieldHoraFim);
+		
 		fieldRua = new JTextField();
-		fieldRua.setBounds(185, 141, 140, 20);
+		fieldRua.setBounds(180, 233, 140, 20);
 		getContentPane().add(fieldRua);
 		fieldRua.setColumns(10);
 		
 		fieldNumero = new JTextField();
-		fieldNumero.setBounds(335, 141, 49, 20);
+		fieldNumero.setBounds(330, 233, 53, 20);
 		getContentPane().add(fieldNumero);
 		fieldNumero.setColumns(10);
 		
 		fieldCidade = new JTextField();
-		fieldCidade.setBounds(185, 211, 140, 20);
+		fieldCidade.setBounds(180, 293, 140, 20);
 		getContentPane().add(fieldCidade);
 		fieldCidade.setColumns(10);
 		
-		JLabel lblData = new JLabel("DATA");
-		lblData.setBounds(35, 125, 46, 14);
+		JLabel lblData = new JLabel("DATA In\u00EDcio");
+		lblData.setBounds(10, 113, 71, 14);
 		getContentPane().add(lblData);
 		
-		JLabel lblHora = new JLabel("HORA");
-		lblHora.setBounds(35, 197, 46, 14);
-		getContentPane().add(lblHora);
-		
 		JLabel lblRua = new JLabel("RUA:");
-		lblRua.setBounds(185, 125, 46, 14);
+		lblRua.setBounds(180, 220, 46, 14);
 		getContentPane().add(lblRua);
 		
 		JLabel lblN = new JLabel("N\u00BA");
-		lblN.setBounds(335, 125, 46, 14);
+		lblN.setBounds(330, 220, 46, 14);
 		getContentPane().add(lblN);
 		
 		JLabel lblCidade = new JLabel("CIDADE");
-		lblCidade.setBounds(185, 197, 46, 14);
+		lblCidade.setBounds(185, 268, 46, 14);
 		getContentPane().add(lblCidade);
 		
 		JLabel lblEstado = new JLabel("ESTADO");
-		lblEstado.setBounds(335, 197, 60, 14);
+		lblEstado.setBounds(335, 268, 60, 14);
 		getContentPane().add(lblEstado);
 		
 		JLabel lblAgendamentoDeLeilao = new JLabel("ATUALIZAR LEIL\u00C3O");
 		lblAgendamentoDeLeilao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAgendamentoDeLeilao.setBounds(185, 11, 194, 20);
+		lblAgendamentoDeLeilao.setBounds(131, 11, 194, 20);
 		getContentPane().add(lblAgendamentoDeLeilao);
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(StatusLeilao.values()));
 		comboBox.setEditable(true);
-		comboBox.setBounds(197, 282, 122, 20);
+		comboBox.setBounds(10, 293, 122, 20);
 		getContentPane().add(comboBox);
 		
 		JButton btnSalvar = new JButton("SALVAR");
@@ -127,8 +134,10 @@ public class AtualizarLeilao extends JInternalFrame {
 					// - atualiza a data e endereço do leilão
 					Endereco novoEndereco = new Endereco(fieldRua.getText(), fieldNumero.getText(), fieldCidade.getText(), fieldEstado.getText());
 					leilaoAtualizado.setDataHora(fieldData.getText(), fieldHora.getText());
+					leilaoAtualizado.setDataHoraFinal(fieldDataFim.getText(), fieldHoraFim.getText());
 					leilaoAtualizado.setEndereco(novoEndereco);
 					leilaoAtualizado.setStatus((StatusLeilao) comboBox.getSelectedItem());
+					
 					
 					//abrir Tela gerenciarLeilao
 					TelaPrincipal.abrirTelaGerenciarLeiloes();
@@ -148,36 +157,36 @@ public class AtualizarLeilao extends JInternalFrame {
 
 			}
 		});
-		btnSalvar.setBounds(154, 356, 89, 23);
+		btnSalvar.setBounds(154, 353, 89, 23);
 		getContentPane().add(btnSalvar);
 		
 		JLabel lblBanco = new JLabel("BANCO");
-		lblBanco.setBounds(35, 266, 46, 14);
+		lblBanco.setBounds(10, 220, 46, 14);
 		getContentPane().add(lblBanco);
 		
 		JLabel lblEndereo = new JLabel("ENDERE\u00C7O");
-		lblEndereo.setBounds(235, 94, 76, 14);
+		lblEndereo.setBounds(249, 190, 76, 14);
 		getContentPane().add(lblEndereo);
 		
 		fieldBanco = new JTextField();
 		fieldBanco.setEditable(false);
-		fieldBanco.setBounds(34, 282, 122, 20);
+		fieldBanco.setBounds(10, 233, 122, 20);
 		getContentPane().add(fieldBanco);
 		fieldBanco.setColumns(10);
 		
 		
 		JLabel lblStatus = new JLabel("STATUS");
-		lblStatus.setBounds(197, 266, 46, 14);
+		lblStatus.setBounds(10, 268, 46, 14);
 		getContentPane().add(lblStatus);
 		
 		fieldIdLeilao = new JTextField();
 		fieldIdLeilao.setEditable(false);
-		fieldIdLeilao.setBounds(35, 91, 86, 20);
+		fieldIdLeilao.setBounds(81, 63, 86, 20);
 		getContentPane().add(fieldIdLeilao);
 		fieldIdLeilao.setColumns(10);
 		
 		JLabel lblIdLeilo = new JLabel("ID LEIL\u00C3O");
-		lblIdLeilo.setBounds(35, 74, 85, 14);
+		lblIdLeilo.setBounds(10, 66, 85, 14);
 		getContentPane().add(lblIdLeilo);
 		
 		//carrega dados do leilão na tela de alterar leiloes
@@ -189,11 +198,27 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldRua.setText(leilaoAtual.getEndereco().getRua());
 		fieldData.setText(leilaoAtual.getDataFormatada());
 		fieldHora.setText(leilaoAtual.getHoraFormatada());
+		fieldDataFim.setText(leilaoAtual.getDataFormatadaFinal());
+		fieldHoraFim.setText(leilaoAtual.getHoraFormatada());
 		
 		fieldEstado = new JTextField();
-		fieldEstado.setBounds(335, 211, 53, 20);
+		fieldEstado.setBounds(335, 293, 53, 20);
 		getContentPane().add(fieldEstado);
 		fieldEstado.setColumns(10);
+		
+		JLabel lblDataFim = new JLabel("HORA Inicio");
+		lblDataFim.setBounds(10, 135, 71, 14);
+		getContentPane().add(lblDataFim);
+		
+
+		
+		JLabel lblDataFim_1 = new JLabel("DATA Fim");
+		lblDataFim_1.setBounds(197, 113, 71, 14);
+		getContentPane().add(lblDataFim_1);
+		
+		JLabel lblHoraFim = new JLabel("HORA Fim");
+		lblHoraFim.setBounds(197, 135, 71, 14);
+		getContentPane().add(lblHoraFim);
 		
 	}
 }

@@ -14,6 +14,7 @@ public class Leilao {
 	private int idLeilao;
 	private LinkedList<Item> itens;
 	private Date dataHoraInicio;
+	private Date dataHoraFim;
 	private String bancoCnpj;
 	private StatusLeilao status;
 	// (1) ABERTO - (2) EM ANDAMENTO - (3) FINALIZADO
@@ -23,6 +24,7 @@ public class Leilao {
 		this.idLeilao=UnikeId.getIdKey();
 		this.itens=new LinkedList<Item>();
 		this.dataHoraInicio=new Date();
+		this.dataHoraFim=new Date();
 		this.bancoCnpj="pendente";
 		this.status= StatusLeilao.PENDENTE;
 		this.endereco=null;
@@ -34,6 +36,8 @@ public class Leilao {
 		this.setBancoCnpj(newLeilao.getBancoCnpj());
 		this.setStatus(newLeilao.getStatus());
 	}
+	
+	//data hora inicial
 	public void setDataHora(String data, String hora) throws ParseException{
 		String novaData = data+hora;
 		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyyhh:mm");
@@ -42,12 +46,27 @@ public class Leilao {
 	public String getDataFormatada() {
 		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyy");
 		return mascara.format(this.dataHoraInicio);
-
 	}
 	public String getHoraFormatada() {
 		SimpleDateFormat mascara= new SimpleDateFormat("hh:mm");
 		return mascara.format(this.dataHoraInicio);
 	}
+	//data hora final
+	public void setDataHoraFinal(String data, String hora) throws ParseException{
+		String novaData = data+hora;
+		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyyhh:mm");
+		this.dataHoraFim = mascara.parse(novaData);
+		}
+	public String getDataFormatadaFinal() {
+		SimpleDateFormat mascara= new SimpleDateFormat("dd/MM/yyyy");
+		return mascara.format(this.dataHoraFim);
+
+	}
+	public String getHoraFormatadaFinal() {
+		SimpleDateFormat mascara= new SimpleDateFormat("hh:mm");
+		return mascara.format(this.dataHoraFim);
+	}
+		
 	public Item getItemPorId(int id){
 		for(Item item: this.itens) {
 			if (item.getIdItem()==id) return item;

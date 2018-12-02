@@ -60,6 +60,11 @@ public class TelaPrincipal extends JFrame {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 					
+					Relogio relogio=new Relogio();
+					relogio.setLocation(950,0);
+					desktopPane.add(relogio);
+					relogio.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,6 +87,7 @@ public class TelaPrincipal extends JFrame {
 		setTitle("Leil\u00F5es System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 860);
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

@@ -10,11 +10,11 @@ public class Item {
 	private double lanceMinimo;
 	private String ano;
 	private int tipo;
-	private int idMenorLance;
+	private Lance MenorLance;
 	
 	public Item() {
 		this.idItem=UnikeId.getIdKey();
-		
+		MenorLance=new Lance(0,"", 999999999);
 	}
 	public void updateItem(Item item) {
 		this.setDescricao(item.getDescricao());
@@ -23,8 +23,13 @@ public class Item {
 		this.setTipo(item.getTipo());
 	}
 	
-	public void setSeMenorLance(int idLance) {
-		if()
+	public void setSeMenorLance(Lance novoLance) {
+		if(novoLance.getValorLance() < MenorLance.getValorLance()) {
+			this.MenorLance.setCpfCliente(novoLance.getCpfCliente());
+			this.MenorLance.setIdItem(novoLance.getIdItem());
+			this.MenorLance.setIdLance(novoLance.getIdLance());
+			this.MenorLance.setValorLance(novoLance.getValorLance());
+		}
 	}
 	
 }

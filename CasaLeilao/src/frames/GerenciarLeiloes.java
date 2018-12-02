@@ -100,7 +100,7 @@ public class GerenciarLeiloes extends JInternalFrame {
 		scrollPaneLeiloes.setViewportView(table);
 		
 		
-		JButton btnAlterar = new JButton("3\u00BA - Editar Leil\u00E3o / Status");
+		JButton btnAlterar = new JButton("Editar Leil\u00E3o / Status");
 		btnAlterar.setToolTipText("Selecione um leil\u00E3o primeiro");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

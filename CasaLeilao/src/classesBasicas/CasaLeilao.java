@@ -3,8 +3,7 @@ package classesBasicas;
 import java.util.LinkedList;
 import lombok.*;
 
-@Getter
-@Setter
+@Getter @Setter
 public class CasaLeilao {
 	private LinkedList<Leilao> leiloes;
 	private LinkedList<Cliente> clientes;
@@ -99,12 +98,14 @@ public class CasaLeilao {
 		return false;
 	}
 
-
-	public void addLance(Lance novoLance) {
-		// 
+		
+	public void addLance(Lance novoLance, int idLeilao) {
 		this.lances.add(novoLance);
+		//Setar menor lance para o item
+		this.getLeilaoPorId(idLeilao)
+			.getItemPorId(novoLance.getIdItem())
+			.setSeMenorLance(novoLance);
 	}
 
-
-
+	
 }
