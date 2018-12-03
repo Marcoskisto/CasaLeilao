@@ -26,7 +26,6 @@ public class AtualizarLeilao extends JInternalFrame {
 	private JTextField fieldNumero;
 	private JTextField fieldCidade;
 	private JFormattedTextField fieldData;
-	private JFormattedTextField fieldDataFim;
 	private JTextField fieldBanco;
 	private JTextField fieldIdLeilao;
 	private JTextField fieldEstado;
@@ -67,15 +66,16 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldHora.setBounds(81, 132, 85, 20);
 		getContentPane().add(fieldHora);
 		
-		fieldDataFim = new JFormattedTextField();
+		JFormattedTextField fieldDataFim = new JFormattedTextField();
 		fieldDataFim.setToolTipText("");
-		fieldDataFim.setBounds(81, 110, 85, 20);
+		fieldDataFim.setBounds(249, 110, 85, 20);
 		getContentPane().add(fieldDataFim);
-		
+
 		JFormattedTextField fieldHoraFim = new JFormattedTextField();
 		fieldHoraFim.setToolTipText("##:##");
-		fieldHoraFim.setBounds(81, 132, 85, 20);
+		fieldHoraFim.setBounds(249, 132, 85, 20);
 		getContentPane().add(fieldHoraFim);
+		
 		
 		fieldRua = new JTextField();
 		fieldRua.setBounds(180, 233, 140, 20);
@@ -107,6 +107,11 @@ public class AtualizarLeilao extends JInternalFrame {
 		JLabel lblCidade = new JLabel("CIDADE");
 		lblCidade.setBounds(185, 268, 46, 14);
 		getContentPane().add(lblCidade);
+
+		fieldEstado = new JTextField();
+		fieldEstado.setBounds(335, 293, 53, 20);
+		getContentPane().add(fieldEstado);
+		fieldEstado.setColumns(10);
 		
 		JLabel lblEstado = new JLabel("ESTADO");
 		lblEstado.setBounds(335, 268, 60, 14);
@@ -116,12 +121,6 @@ public class AtualizarLeilao extends JInternalFrame {
 		lblAgendamentoDeLeilao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblAgendamentoDeLeilao.setBounds(131, 11, 194, 20);
 		getContentPane().add(lblAgendamentoDeLeilao);
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(StatusLeilao.values()));
-		comboBox.setEditable(true);
-		comboBox.setBounds(10, 293, 122, 20);
-		getContentPane().add(comboBox);
 		
 		JButton btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -136,7 +135,7 @@ public class AtualizarLeilao extends JInternalFrame {
 					leilaoAtualizado.setDataHora(fieldData.getText(), fieldHora.getText());
 					leilaoAtualizado.setDataHoraFinal(fieldDataFim.getText(), fieldHoraFim.getText());
 					leilaoAtualizado.setEndereco(novoEndereco);
-					leilaoAtualizado.setStatus((StatusLeilao) comboBox.getSelectedItem());
+					
 					
 					
 					//abrir Tela gerenciarLeilao
@@ -174,11 +173,6 @@ public class AtualizarLeilao extends JInternalFrame {
 		getContentPane().add(fieldBanco);
 		fieldBanco.setColumns(10);
 		
-		
-		JLabel lblStatus = new JLabel("STATUS");
-		lblStatus.setBounds(10, 268, 46, 14);
-		getContentPane().add(lblStatus);
-		
 		fieldIdLeilao = new JTextField();
 		fieldIdLeilao.setEditable(false);
 		fieldIdLeilao.setBounds(81, 63, 86, 20);
@@ -194,6 +188,7 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldIdLeilao.setText(Integer.toString(leilaoAtual.getIdLeilao()));
 		fieldBanco.setText(leilaoAtual.getBancoCnpj());
 		fieldCidade.setText(leilaoAtual.getEndereco().getCidade());
+		fieldEstado.setText(leilaoAtual.getEndereco().getEstado());
 		fieldNumero.setText(leilaoAtual.getEndereco().getNumero());
 		fieldRua.setText(leilaoAtual.getEndereco().getRua());
 		fieldData.setText(leilaoAtual.getDataFormatada());
@@ -201,10 +196,6 @@ public class AtualizarLeilao extends JInternalFrame {
 		fieldDataFim.setText(leilaoAtual.getDataFormatadaFinal());
 		fieldHoraFim.setText(leilaoAtual.getHoraFormatada());
 		
-		fieldEstado = new JTextField();
-		fieldEstado.setBounds(335, 293, 53, 20);
-		getContentPane().add(fieldEstado);
-		fieldEstado.setColumns(10);
 		
 		JLabel lblDataFim = new JLabel("HORA Inicio");
 		lblDataFim.setBounds(10, 135, 71, 14);

@@ -3,7 +3,7 @@ package classesBasicas;
 import java.util.LinkedList;
 import lombok.*;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class CasaLeilao {
 	private LinkedList<Leilao> leiloes;
 	private LinkedList<Cliente> clientes;

@@ -1,7 +1,12 @@
+// 3ºBD - prof Nadalete - alunos: Marcos e Gabriel
+
 package frames;
+
+import static org.junit.Assert.fail;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,6 +33,11 @@ import javax.swing.JLayeredPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -39,14 +49,14 @@ public class TelaPrincipal extends JFrame {
 	private JPanel contentPane;
 	public static JDesktopPane desktopPane;
 	
-	@Getter @Setter
+
 	public static CasaLeilao casa=new CasaLeilao();
 	public static Leilao leilao;
 	public static boolean logon=false;
 	public static String loginCpf="";
 	public static int idLeilao;
 
-
+	private static String FILE_NAME = "file.txt";
 	
 
 	/**
@@ -77,7 +87,21 @@ public class TelaPrincipal extends JFrame {
 		desktopPane.add(gerLeiloes);
 		gerLeiloes.setVisible(true);
 	}
-
+	public static void atualizaStatusLeilao() {
+		
+		for(Leilao l: TelaPrincipal.casa.getLeiloes()) {
+			if(l.getDataHoraInicio().before(Relogio.dataHoraSystem) 
+				&& l.getDataHoraFim().after(Relogio.dataHoraSystem)) {
+				System.out.println("teste");
+				l.setStatus(StatusLeilao.EM_ANDAMENTO);
+			}else if(l.getDataHoraInicio().after(Relogio.dataHoraSystem)) {
+				l.setStatus(StatusLeilao.PENDENTE);
+			}else if(l.getDataHoraFim().before(Relogio.dataHoraSystem)) {
+				l.setStatus(StatusLeilao.FINALIZADO);
+			}
+		}		
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -159,6 +183,33 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenuItem mntmMeusLances = new JMenuItem("Meus Lances");
 		mnLances.add(mntmMeusLances);
+		
+		JMenu mnGerardet = new JMenu("Gerar .DET");
+		menuBar.add(mnGerardet);
+		
+		JMenuItem mntmGe = new JMenuItem("Salvar");
+		mntmGe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				    try {
+				        //create the file using FileWriter
+				        FileWriter fw = new FileWriter(FILE_NAME);
+				        //create a File linked to the same file using the name of this one;
+				        File f = new File(FILE_NAME);
+				        fw.write("teste de write");
+				        //Print absolute path
+				        
+				        System.out.println(f.getAbsolutePath());
+
+				    } catch (IOException ef) {
+				        // TODO Auto-generated catch block
+				        ef.printStackTrace();
+				    } 
+				    
+				
+			}
+		});
+		mnGerardet.add(mntmGe);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

@@ -14,14 +14,18 @@ public class Testes {
 	public void testesCasaLeilao() {
 		System.out.println("teste");		
 		
-		Leilao leilao1=new Leilao("11h", "111", "Fechado");
-		Leilao leilao2=new Leilao("10h", "222", "Aberto");
-		Leilao leilao3=new Leilao("33h", "333", "andamento");
-		
+		Leilao leilao1=new Leilao();
+		Leilao leilao2=new Leilao();	
+		Leilao leilao3=new Leilao();
 		
 		//testa lista de leiloes
 		casa.addLeilao(leilao1);
-		assertEquals(casa.getLeiloes().size(),1);
+		leilao1.setBancoCnpj("111");
+		casa.addLeilao(leilao2);
+		leilao2.setBancoCnpj("222");
+		
+		assertEquals(casa.getLeiloes().size(),2);
+		System.out.println(leilao1.getBancoCnpj());
 		assertEquals(casa.getLeilaoPorId(1000001).getBancoCnpj(),"111");
 		Leilao leilao = casa.getLeilaoPorId(1000001);
 		System.out.println(leilao.getIdLeilao());
@@ -33,9 +37,9 @@ public class Testes {
 		
 		//testa removeLeilao
 		casa.addLeilao(leilao3);
-		assertEquals(casa.getLeiloes().size(),2);
+		assertEquals(casa.getLeiloes().size(),3);
 		casa.removeLeilao(1000003);
-		assertEquals(casa.getLeiloes().size(),1);
+		assertEquals(casa.getLeiloes().size(),2);
 		
 		// testa lista de clientes
 		Cliente cliente1 = new Cliente("marcos", "1111", "1010");
@@ -46,9 +50,8 @@ public class Testes {
 		assertEquals(casa.getClientes().size(),1);
 		assertEquals(casa.getClientePorCpf("1111").getCpf(),"1111");
 		
-		//testa incluir lance
-		//testa update lance
-		//testa remove lance
+		//testa incluir item
+		
 	}
 	
 		

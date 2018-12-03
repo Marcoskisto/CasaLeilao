@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import lombok.*;
 import sun.security.x509.UniqueIdentity;
 
-@Getter @Setter 
+@Getter @Setter @ToString
 
 public class Leilao {
 	private int idLeilao;
@@ -76,5 +76,5 @@ public class Leilao {
 	public void removeItemPorId(int id) {
 		this.itens.remove(this.getItemPorId(id));
 	}
-
+	
 }
